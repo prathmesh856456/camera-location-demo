@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera and Location Demo</title>
+</head>
+<body>
+
+<h2>Camera & Location Permission Demo</h2>
+
+<button onclick="openCamera()">Open Camera</button>
+<br><br>
+
+<video id="video" width="300" height="200" autoplay></video>
+
+<br><br>
+
+<button onclick="getLocation()">Get Location</button>
+
+<p id="location"></p>
+
+<script>
+function openCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+        document.getElementById("video").srcObject = stream;
+    })
+    .catch(function() {
+        alert("Camera permission denied");
+    });
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Location not supported");
+    }
+}
+
+function showPosition(position) {
+    document.getElementById("location").innerHTML =
+        "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+</body>
+</html>
